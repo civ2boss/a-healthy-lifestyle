@@ -32,7 +32,7 @@ function Section({ resource: { Resource: topics } }) {
       />
       <ul className={classes.topics}>
         {topics.map(topic => (
-          <li className={classes.topic}>
+          <li key={topic.Title} className={classes.topic}>
             <a href={topic.AccessibleVersion}><img src={topic.ImageUrl} alt={topic.ImageAlt} className={classes.image} /></a>
             <a href={topic.AccessibleVersion}>{topic.Title}</a>
             {topic.MyHFDescription}
