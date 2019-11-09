@@ -38,10 +38,14 @@ function Form({ age, setAge, sex, setSex, pregnant, setPregnant }) {
           >
             <FormControlLabel
               value="female"
-              control={<Radio />}
+              control={<Radio color="primary" />}
               label="Female"
             />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
+            <FormControlLabel
+              value="male"
+              control={<Radio color="primary" />}
+              label="Male"
+            />
           </RadioGroup>
         </FormControl>
       </div>

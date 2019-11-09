@@ -8,7 +8,7 @@ function useHealthApi({ age, sex, pregnant, who }, defaultData) {
     async function fetchData() {
       const resp = await fetch(healthApiUrl, { referrerPolicy: "no-referrer" });
       const json = await resp.json();
-      updateData(json);
+      updateData(json.Result);
     }
     fetchData();
   }, [age, sex, pregnant, who, healthApiUrl]);

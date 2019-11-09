@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import useHealthApi from "./hooks/useHealthApi";
-import Form from "./components/Form";
+import Search from "./components/Search";
+import Main from "./components/Main";
 
 const useStyles = makeStyles({
   app: {
@@ -14,11 +15,9 @@ const useStyles = makeStyles({
   heading: {
     gridColumn: "1 / -1"
   },
-  sidebar: {
-    gridColumn: "1 / span 3"
-  },
-  main: {
-    gridColumn: "4 / -1"
+  footer: {
+    borderTop: "1px solid #000",
+    gridColumn: "1 / -1"
   }
 });
 
@@ -29,35 +28,29 @@ function App() {
   const [search, setSearch] = useState("");
   const classes = useStyles();
 
-  let result = useHealthApi(search, {});
-  console.log(result);
-
-  const handleFormSubmit = event => {
-    event.preventDefault();
-    console.log("Hey");
-
-    setSearch({ age, sex, pregnant });
-  };
+  const result = useHealthApi(search, {});
 
   return (
     <div className={classes.app}>
       <h1 className={classes.heading}>A Healthy Lifestyle</h1>
-      <div className={classes.sidebar}>
-        <form onSubmit={handleFormSubmit}>
-          <Form
-            age={age}
-            setAge={setAge}
-            sex={sex}
-            setSex={setSex}
-            pregnant={pregnant}
-            setPregnant={setPregnant}
+      <Search
+        age={age}
+        sex={sex}
+        pregnant={pregnant}
+        setAge={setAge}
+        setSex={setSex}
+        setPregnant={setPregnant}
+        setSearch={setSearch}
+      />
+      {result && result.Total && result.Total > 0 && <Main result={result} />}
+      {result && result && result.AboutTheseResults && (
+        <footer className={classes.footer}>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: result.AboutTheseResults
+            }}
           />
-        </form>
-      </div>
-      {result && result.Result && result.Result.Total > 0 && (
-        <div className={classes.main}>
-          <h2 dangerouslySetInnerHTML={{ __html: result.Result.MyHFHeading }} />
-        </div>
+        </footer>
       )}
     </div>
   );
